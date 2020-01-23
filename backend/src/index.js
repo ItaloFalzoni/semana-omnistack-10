@@ -1,16 +1,15 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const routes = require('./routes.js')
 const cors = require('cors')
-const routes = require('./routes')
-
 const app = express()
 
-mongoose.connect('mongodb://omnistack:omnistack@cluster0-shard-00-00-iswxy.mongodb.net:27017,cluster0-shard-00-01-iswxy.mongodb.net:27017,cluster0-shard-00-02-iswxy.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+mongoose.connect('mongodb+srv://omnistack:omnistack@cluster0-iswxy.mongodb.net/test?retryWrites=true&w=majority',{
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
 })
 
-app.use(cors())
+app.use(cors({origin: 'http://localhost:3000'}))
 app.use(express.json())
 app.use(routes)
 
