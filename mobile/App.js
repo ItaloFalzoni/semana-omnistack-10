@@ -1,6 +1,9 @@
-import React from 'react'
+import React from "react"
+import { StatusBar, YellowBox } from "react-native"
+
 import Routes from './src/routes'
-import { StatusBar } from 'react-native'
+
+YellowBox.ignoreWarnings(['Unrecognized WebSocket'])
 
 export default function App() {
   return (
@@ -8,5 +11,5 @@ export default function App() {
       <StatusBar barStyle="light-content" backgroundColor="#7D40E7" />
       <Routes />
     </>
-  );
+  )
 }

@@ -1,16 +1,23 @@
 const express = require('express')
 const mongoose = require('mongoose')
-const routes = require('./routes.js')
 const cors = require('cors')
-const app = express()
+const http = require('http')
+const routes = require('./routes')
 
-mongoose.connect('mongodb+srv://omnistack:omnistack@cluster0-iswxy.mongodb.net/test?retryWrites=true&w=majority',{
+const { setupWebsocket } = require('./websocket')
+
+const app = express()
+const server = http.Server(app)
+
+setupWebsocket(server)
+
+mongoose.connect('mongodb+srv://omnistack:omnistack@cluster0-iswxy.mongodb.net/test?authSource=admin&replicaSet=Cluster0-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true', {
     useNewUrlParser: true,
-    useUnifiedTopology: true,
+    useUnifiedTopology: true
 })
 
-app.use(cors({origin: 'http://localhost:3000'}))
+app.use(cors())
 app.use(express.json())
 app.use(routes)
 
-app.listen(3333)
+server.listen(3333)
